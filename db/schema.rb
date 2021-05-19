@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2021_05_19_190544) do
 
   create_table "characters", force: :cascade do |t|
     t.string "name"
+    t.string "image_url"
     t.string "age"
     t.string "weight"
     t.string "story"

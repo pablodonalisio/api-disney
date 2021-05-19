@@ -3,6 +3,7 @@ class Character < ApplicationRecord
   after_initialize :init
 
   def init
+    self.image_url ||= 'unknown'
     self.age ||= 'unknown'
     self.weight ||= 'unknown'
     self.story ||= 'unknown'

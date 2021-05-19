@@ -1,11 +1,11 @@
 class CharactersController < ApplicationController
-  before_action :set_character, only: [:show, :update, :destroy]
+  before_action :set_character, only: %i[show update destroy]
 
   # GET /characters
   def index
     @characters = Character.all
 
-    render json: @characters
+    render json: @characters.as_json(only: %i[name image_url])
   end
 
   # GET /characters/1
@@ -39,13 +39,14 @@ class CharactersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_character
-      @character = Character.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def character_params
-      params.require(:character).permit(:name, :weight, :story)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_character
+    @character = Character.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def character_params
+    params.require(:character).permit(:name, :image_url, :weight, :story, :age)
+  end
 end
