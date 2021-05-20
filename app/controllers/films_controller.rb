@@ -2,9 +2,14 @@ class FilmsController < ApplicationController
   before_action :set_film, only: %i[show update destroy]
 
   def index
-    @films = Film.all
-
-    render json: @films.as_json(only: %i[title image_url release_date])
+    if params[:title]
+      @film = Film.find_by(title: params[:title])
+      redirect_to @film
+    else
+      @films = Film.all
+      @films = @films.order("release_date #{params[:order]}") if params[:order]
+      render json: @films.as_json(only: %i[title image_url release_date])
+    end
   end
 
   def show
