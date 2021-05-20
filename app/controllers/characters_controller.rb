@@ -4,13 +4,12 @@ class CharactersController < ApplicationController
   # GET /characters
   def index
     @characters = Character.all
-
     render json: @characters.as_json(only: %i[name image_url])
   end
 
   # GET /characters/1
   def show
-    render json: @character
+    render json: @character.as_json(except: %i[created_at updated_at])
   end
 
   # POST /characters

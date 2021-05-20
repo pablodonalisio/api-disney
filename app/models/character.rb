@@ -1,5 +1,5 @@
 class Character < ApplicationRecord
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   after_initialize :init
 
   def init
