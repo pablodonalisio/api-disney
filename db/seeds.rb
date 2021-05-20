@@ -31,3 +31,11 @@ Character.create(
     age: 'unknown'
   }
 )
+
+Film.create(
+  {
+      title: "Aladdin",
+      image_url: "https://upload.wikimedia.org/wikipedia/commons/0/05/Aladdin-logo-2.svg",
+      release_date: "1992-11-25"
+  }
+)
