@@ -18,9 +18,10 @@ class FilmsController < ApplicationController
 
   def create
     @film = Film.new(film_params)
-    @film.add_characters(params[:characters_ids])
+    @film.add_characters(params[:characters_ids]) if params[:characters_ids]
+    @film.add_genres(params[:genres_ids]) if params[:genres_ids]
 
-    if @film.errors[:characters].empty? && @film.save
+    if @film.errors.empty? && @film.save
       render json: @film, status: :created, location: @film
     else
       render json: @film.errors, status: :unprocessable_entity
@@ -28,9 +29,10 @@ class FilmsController < ApplicationController
   end
 
   def update
-    @film.add_characters(params[:characters_ids])
+    @film.add_characters(params[:characters_ids]) if params[:characters_ids]
+    @film.add_genres(params[:genres_ids]) if params[:genres_ids]
 
-    if @film.errors[:characters].empty? && @film.update(film_params)
+    if @film.errors.empty? && @film.update(film_params)
       render json: @film
     else
       render json: @film.errors, status: :unprocessable_entity

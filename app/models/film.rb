@@ -14,4 +14,17 @@ class Film < ApplicationRecord
       end
     end
   end
+
+  def add_genres(ids)
+    genres_to_add = Genre.find(ids)
+    genres_to_add.each do |genre|
+      if genre.nil?
+        errors.add(:genres, message: "Couldn't find genre")
+        break
+      elsif genres.exclude?(genre)
+        genres << genre
+      end
+    end
+  end
+
 end
