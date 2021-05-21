@@ -6,10 +6,7 @@ class CharactersController < ApplicationController
       @character = Character.find_by(name: params[:name])
       redirect_to @character
     else
-      @characters = Character.all
-      filtering_params.each do |key, value|
-        @characters = @characters.where("#{key} = '#{value}'") if value
-      end
+      @characters = filter_characters(filtering_params)
       render json: @characters.as_json(only: %i[name image_url])
     end
   end
@@ -58,6 +55,14 @@ class CharactersController < ApplicationController
   end
 
   def filtering_params
-    params.slice(:age, :weight)
+    params.slice(:age, :weight, :movie)
+  end
+
+  def filter_characters(params)
+    characters = Character.all
+    characters = characters.where(age: params[:age]) if params[:age]
+    characters = characters.where(weight: params[:weight]) if params[:weight]
+    characters = characters.select { |char| char.films.include?(Film.find(params[:movie])) } if params[:movie]
+    characters
   end
 end
