@@ -6,8 +6,7 @@ class FilmsController < ApplicationController
       @film = Film.find_by(title: params[:title])
       redirect_to @film
     else
-      @films = Film.all
-      @films = @films.order("release_date #{params[:order]}") if params[:order]
+      @films = filter_films(filtering_params)
       render json: @films.as_json(only: %i[title image_url release_date])
     end
   end
@@ -58,5 +57,16 @@ class FilmsController < ApplicationController
 
   def film_params
     params.require(:film).permit(:image_url, :title, :release_date, :rating)
+  end
+
+  def filtering_params
+    params.slice(:order, :genre)
+  end
+
+  def filter_films(params)
+    films = Film.all
+    films = films.order("release_date #{params[:order]}") if params[:order]
+    films = films.select { |film| film.genres.include?(Genre.find(params[:genre])) } if params[:genre]
+    films
   end
 end
