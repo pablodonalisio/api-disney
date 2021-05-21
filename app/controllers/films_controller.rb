@@ -13,7 +13,14 @@ class FilmsController < ApplicationController
   end
 
   def show
-    render json: @film.as_json(except: %i[created_at updated_at])
+    render json: @film.as_json(
+      except: %i[created_at updated_at],
+      include: {
+        characters: {
+          except: %i[created_at updated_at]
+        }
+      }
+    )
   end
 
   def create
