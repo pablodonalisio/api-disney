@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   resources :films, path: 'movies'
   resources :characters
   resources :users
-  get 'login', to: 'authentication#login'
+  post 'login', to: 'authentication#login'
 end
