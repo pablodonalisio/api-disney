@@ -1,4 +1,4 @@
-class GenresController < ApplicationController
+class GenresController < AuthenticationController
   before_action :set_genre, only: %i[update destroy]
 
   def create

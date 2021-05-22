@@ -1,4 +1,4 @@
-class FilmsController < ApplicationController
+class FilmsController < AuthenticationController
   before_action :set_film, only: %i[show update destroy]
 
   def index

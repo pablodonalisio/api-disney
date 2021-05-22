@@ -1,4 +1,4 @@
-class CharactersController < ApplicationController
+class CharactersController < AuthenticationController
   before_action :set_character, only: %i[show update destroy]
 
   def index
