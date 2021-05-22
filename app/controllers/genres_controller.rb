@@ -1,5 +1,14 @@
 class GenresController < AuthenticationController
-  before_action :set_genre, only: %i[update destroy]
+  before_action :set_genre, only: %i[update destroy show]
+
+  def index
+    @genres = Genre.all
+    render json: @genres.as_json(except: %i[created_at updated_at])
+  end
+
+  def show
+    render json: @genre.as_json(except: %i[created_at updated_at])
+  end
 
   def create
     @genre = Genre.new(genre_params)
