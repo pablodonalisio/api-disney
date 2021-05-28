@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "POST /movies", type: :request do
+RSpec.describe "POST /films", type: :request do
   let!(:user) { User.create({ email: "test@test.com", password: "asdfgh" })}
   let!(:token) do
     post login_path, params: {

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "GET /movies", type: :request do
+RSpec.describe "GET /films", type: :request do
   let!(:user) { User.create({ email: "test@test.com", password: "asdfgh" })}
   let!(:token) do
     post login_path, params: {
@@ -62,7 +62,7 @@ RSpec.describe "GET /movies", type: :request do
     expect(json[:title]).to eq('Aladdin')
   end
 
-  describe "ordering movies" do
+  describe "ordering films" do
     let!(:other_film) do
       Film.create({
         title: 'Mickey Mouse Adventures',

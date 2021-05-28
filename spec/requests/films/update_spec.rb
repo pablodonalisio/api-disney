@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "PATCH /movies/:id", type: :request do
+RSpec.describe "PATCH /films/:id", type: :request do
   let!(:user) { User.create({ email: "test@test.com", password: "asdfgh" })}
   let!(:token) do
     post login_path, params: {
