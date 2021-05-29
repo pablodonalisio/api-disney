@@ -3,8 +3,7 @@ class FilmsController < AuthenticationController
 
   def index
     if params[:title]
-      @film = Film.find_by(title: params[:title])
-      redirect_to @film
+      find_film
     else
       @films = filter_films(filtering_params)
       render json: @films.as_json(only: %i[title image_url release_date])
@@ -48,6 +47,14 @@ class FilmsController < AuthenticationController
 
   def set_film
     @film = Film.find(params[:id])
+  end
+  
+  def find_film
+    if @film = Film.find_by(title: params[:title])
+      redirect_to @film
+    else
+      render json: { error: "Couldn't find the film you're looking for" }, status: :not_found
+    end
   end
 
   def film_params

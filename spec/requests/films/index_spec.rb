@@ -35,16 +35,33 @@ RSpec.describe "GET /films", type: :request do
     expect(json[:title]).to eq('Aladdin')
   end
 
-  it "redirects to specified film" do
-    get films_path,
-      params: {
-        title: 'Aladdin'
-      },
-      headers: {
-        authorization: "Bearer #{token}"
-      }
+  describe 'if params[title]' do
+    it "redirects to specified film" do
+      get films_path,
+        params: {
+          title: 'Aladdin'
+        },
+        headers: {
+          authorization: "Bearer #{token}"
+        }
 
-    expect(response).to have_http_status(302)
+      expect(response).to have_http_status(302)
+    end
+
+    it "shows an error" do
+      get films_path,
+        params: {
+          title: 'Wrong title'
+        },
+        headers: {
+          authorization: "Bearer #{token}"
+        }
+
+      expect(response).to have_http_status(404)
+      
+      json = JSON.parse(response.body).deep_symbolize_keys
+      expect(json[:error]).to eq("Couldn't find the film you're looking for")
+    end
   end
 
   it 'returns films with specified genre' do 
