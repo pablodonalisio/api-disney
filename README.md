@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Disney API where you can storage Disney characters and films to a database. Also you can
+see which character participate on which in film, add films genres and more.
 
-Things you may want to cover:
+# Ruby version
 
-* Ruby version
+`ruby '2.7.3'`
 
-* System dependencies
+- Configuration
 
-* Configuration
+- Database creation
 
-* Database creation
+- Database initialization
 
-* Database initialization
+- How to run the test suite
 
-* How to run the test suite
+- Services (job queues, cache servers, search engines, etc.)
 
-* Services (job queues, cache servers, search engines, etc.)
+- Deployment instructions
 
-* Deployment instructions
-
-* ...
+- ...
