@@ -31,8 +31,8 @@ You can create one at
 
 Query params:
 
-- User[email]
-- User[password] (min 6 characters)
+- user[email]
+- user[password] (min 6 characters)
 
 Then you need to login to get a Token at
 
@@ -40,8 +40,8 @@ Then you need to login to get a Token at
 
 Query params:
 
-- User[email]
-- User[password]
+- user[email]
+- user[password]
 
 You need the token to make requests to the API.
 
