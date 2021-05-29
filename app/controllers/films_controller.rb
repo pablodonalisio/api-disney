@@ -12,14 +12,7 @@ class FilmsController < AuthenticationController
   end
 
   def show
-    render json: @film.as_json(
-      except: %i[created_at updated_at],
-      include: {
-        characters: {
-          except: %i[created_at updated_at]
-        }
-      }
-    )
+    render json: @film.as_json(include: %i[characters genres])
   end
 
   def create
@@ -28,7 +21,9 @@ class FilmsController < AuthenticationController
     @film.add_genres(params[:genres_ids]) if params[:genres_ids]
 
     if @film.errors.empty? && @film.save
-      render json: @film, status: :created, location: @film
+      render json: @film.as_json(include: %i[characters genres]),
+        status: :created,
+        location: @film
     else
       render json: @film.errors, status: :unprocessable_entity
     end
@@ -39,7 +34,7 @@ class FilmsController < AuthenticationController
     @film.add_genres(params[:genres_ids]) if params[:genres_ids]
 
     if @film.errors.empty? && @film.update(film_params)
-      render json: @film
+      render json: @film.as_json(include: %i[characters genres])
     else
       render json: @film.errors, status: :unprocessable_entity
     end
