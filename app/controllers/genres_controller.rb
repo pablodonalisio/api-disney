@@ -3,11 +3,11 @@ class GenresController < AuthenticationController
 
   def index
     @genres = Genre.all
-    render json: @genres.as_json(except: %i[created_at updated_at])
+    render json: @genres
   end
 
   def show
-    render json: @genre.as_json(except: %i[created_at updated_at])
+    render json: @genre
   end
 
   def create
