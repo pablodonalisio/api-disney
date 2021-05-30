@@ -3,8 +3,7 @@ class CharactersController < AuthenticationController
 
   def index
     if params[:name]
-      @character = Character.find_by(name: params[:name])
-      redirect_to @character
+      find_character
     else
       @characters = filter_characters(filtering_params)
       render json: @characters.as_json(only: %i[name image_url])
@@ -12,14 +11,7 @@ class CharactersController < AuthenticationController
   end
 
   def show
-    render json: @character.as_json(
-      except: %i[created_at updated_at],
-      include: {
-        films: {
-          except: %i[created_at updated_at]
-        }
-      }
-    )
+    render json: @character.as_json(include: :films)
   end
 
   def create
@@ -48,6 +40,14 @@ class CharactersController < AuthenticationController
 
   def set_character
     @character = Character.find(params[:id])
+  end
+
+  def find_character
+    if @character = Character.find_by(name: params[:name])
+      redirect_to @character
+    else
+      render json: { error: "Couldn't find the character you're looking for" }, status: :not_found
+    end
   end
 
   def character_params
