@@ -55,14 +55,14 @@ class CharactersController < AuthenticationController
   end
 
   def filtering_params
-    params.slice(:age, :weight, :movie)
+    params.slice(:age, :weight, :film)
   end
 
   def filter_characters(params)
     characters = Character.all
     characters = characters.where(age: params[:age]) if params[:age]
     characters = characters.where(weight: params[:weight]) if params[:weight]
-    characters = characters.select { |char| char.films.include?(Film.find(params[:movie])) } if params[:movie]
+    characters = characters.select { |char| char.films.include?(Film.find(params[:film])) } if params[:film]
     characters
   end
 end
